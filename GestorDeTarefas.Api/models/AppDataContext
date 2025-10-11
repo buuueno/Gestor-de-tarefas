@@ -1,0 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using GestorDeTarefas.Models; // Importa as classes Tarefa, Categoria e Usuario
+
+namespace GestorDeTarefas.Data
+{
+    public class AppDataContext : DbContext
+    {
+        // Construtor — permite a injeção de dependência via Program.cs
+        public AppDataContext(DbContextOptions<AppDataContext> options) : base(options) { }
+
+        // DbSets = tabelas do banco de dados
+        public DbSet<Tarefa> Tarefas { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+    }
+}
