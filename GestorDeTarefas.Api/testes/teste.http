@@ -37,18 +37,61 @@ Content-Type: application/json
 ###
 
 ### Listar categorias
-GET http://localhost:5190/api/categoria/listar
+GET http://localhost:5172/api/categoria/listar
 
-### Buscar categoria por nome
-GET http://localhost:5190/api/categoria/buscar/Trabalho
+### Buscar categoria por id
+GET http://localhost:5172/api/categoria/1
 
 ### Cadastrar categoria
-POST http://localhost:5190/api/categoria/cadastrar
+POST http://localhost:5172/api/categoria/cadastrar
 Content-Type: application/json
 
 {
     "nome": "Trabalho"
 }
+
+### Atualizar categoria
+PUT http://localhost:5172/api/categoria/1
+Content-Type: application/json
+
+{
+    "nome": "Trabalho Atualizado"
+}
+
+### Deletar categoria
+DELETE http://localhost:5172/api/categoria/1
+}
+
+### =============================
+### Testes de Categoria (compatível com run_categoria_tests.ps1)
+### Ordem usada pelo script: Cadastrar -> Listar -> Buscar por id -> Atualizar -> Deletar
+### Observação: o script automatizado usa o id 1 para as operações subsequentes.
+
+### Cadastrar categoria (POST)
+POST http://localhost:5172/api/categoria/cadastrar
+Content-Type: application/json
+
+{
+    "nome": "Teste Categoria"
+}
+
+### Listar categorias (deve conter a categoria criada)
+GET http://localhost:5172/api/categoria/listar
+
+### Buscar categoria por id (usar id 1 após criação)
+GET http://localhost:5172/api/categoria/1
+
+### Atualizar categoria (PUT id 1)
+PUT http://localhost:5172/api/categoria/1
+Content-Type: application/json
+
+{
+    "nome": "Teste Categoria Atualizada"
+}
+
+### Deletar categoria (DELETE id 1)
+DELETE http://localhost:5172/api/categoria/1
+
 
 ### Remover categoria por id
 DELETE http://localhost:5190/api/categoria/deletar/ID_DA_CATEGORIA

@@ -8,9 +8,8 @@ namespace GestorDeTarefas.Models
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDataContext(DbContextOptions<AppDataContext> options) : base(options)
         {
-            optionsBuilder.UseSqlite("Data Source=GestorTarefas.db");
         }
     }
 }
