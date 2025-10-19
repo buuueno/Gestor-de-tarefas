@@ -1,9 +1,15 @@
-namespace GestorDeTarefas.Models;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-public class Categoria
+namespace GestorDeTarefas.Models
 {
-    public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
-    public DateTime Criado { get; set; } = DateTime.Now;
-    public List<Tarefa> Tarefas { get; set; } = new();
+    public class Categoria
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; } = string.Empty;
+
+        // evita ciclo de referência ao serializar
+        [JsonIgnore]
+        public List<Tarefa> Tarefas { get; set; } = new();
+    }
 }
