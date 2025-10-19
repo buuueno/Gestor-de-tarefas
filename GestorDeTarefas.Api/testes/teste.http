@@ -15,22 +15,22 @@ Content-Type: application/json
     "titulo": "Teste de Tarefa",
     "descricao": "Descrição da tarefa",
     "status": "Pendente",
-    "categoriaId":5,
+    "categoriaId":4,
     "usuarioId":1
 }
 
 ### Remover tarefa por id
-DELETE http://localhost:5172/api/tarefa/2
+DELETE http://localhost:5172/api/tarefa/1
 
 ### Alterar tarefa
-PATCH http://localhost:5172/api/tarefa/1
+PATCH http://localhost:5172/api/tarefa/2
 Content-Type: application/json
 
 {
     "titulo": "Tarefa Modificada",
     "descricao": "Descrição modificada",
     "status": "Concluída",
-    "categoriaId": 5,
+    "categoriaId": 4,
     "usuarioId": 1
 }
 
@@ -40,7 +40,7 @@ Content-Type: application/json
 GET http://localhost:5172/api/categoria/listar
 
 ### Buscar categoria por id
-GET http://localhost:5172/api/categoria/5
+GET http://localhost:5172/api/categoria/4
 
 ### Cadastrar categoria
 POST http://localhost:5172/api/categoria/cadastrar
@@ -51,7 +51,7 @@ Content-Type: application/json
 }
 
 ### Atualizar categoria
-PUT http://localhost:5172/api/categoria/7
+PUT http://localhost:5172/api/categoria/4
 Content-Type: application/json
 
 {
@@ -59,50 +59,8 @@ Content-Type: application/json
 }
 
 ### Deletar categoria
-DELETE http://localhost:5172/api/categoria/7
+DELETE http://localhost:5172/api/categoria/4
 
-
-### =============================
-### Testes de Categoria (compatível com run_categoria_tests.ps1)
-### Ordem usada pelo script: Cadastrar -> Listar -> Buscar por id -> Atualizar -> Deletar
-### Observação: o script automatizado usa o id 1 para as operações subsequentes.
-
-### Cadastrar categoria (POST)
-POST http://localhost:5172/api/categoria/cadastrar
-Content-Type: application/json
-
-{
-    "nome": "Teste Categoria"
-}
-
-### Listar categorias (deve conter a categoria criada)
-GET http://localhost:5172/api/categoria/listar
-
-### Buscar categoria por id (usar id 1 após criação)
-GET http://localhost:5172/api/categoria/1
-
-### Atualizar categoria (PUT id 1)
-PUT http://localhost:5172/api/categoria/1
-Content-Type: application/json
-
-{
-    "nome": "Teste Categoria Atualizada"
-}
-
-### Deletar categoria (DELETE id 1)
-DELETE http://localhost:5172/api/categoria/2
-
-
-### Remover categoria por id
-DELETE http://localhost:5172/api/categoria/deletar/ID_DA_CATEGORIA
-
-### Alterar categoria
-PATCH http://localhost:5172/api/categoria/alterar/4
-Content-Type: application/json
-
-{
-    "nome": "Categoria Modificada"
-}
 
 ###
 
@@ -110,27 +68,27 @@ Content-Type: application/json
 GET http://localhost:5172/api/usuario/listar
 
 ### Buscar usuário por nome
-GET http://localhost:5172/api/usuario/buscar/Ana
+GET http://localhost:5172/api/usuario/buscar/gustavc
 
 ### Cadastrar usuário
 POST http://localhost:5172/api/usuario/cadastrar
 Content-Type: application/json
 
 {
-    "id": 3,
-    "nome": "gustavo",
-    "email": "gu@email.com"
+    "id": 1,
+    "nome": "gustavc",
+    "email": "gustavo@email.com"
 }
 
 ### Remover usuário por id
-DELETE http://localhost:5172/api/usuario/2
+DELETE http://localhost:5172/api/usuario/1
 
 ### Alterar usuário
-PATCH http://localhost:5172/api/usuario/2
+PATCH http://localhost:5172/api/usuario/1
 Content-Type: application/json
 
 {
     "id": 2,
-    "nome": "gustadasdvo",
-    "email": "gu@emaildsd.com"
+    "nome": "vinicius bueno",
+    "email": "vini22@emaildsd.com"
 }
