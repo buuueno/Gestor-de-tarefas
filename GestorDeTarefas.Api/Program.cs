@@ -147,6 +147,48 @@ app.MapGet("/api/tarefa/listar", async ([FromServices] AppDataContext banco) =>
 
     return tarefas.Count == 0 ? Results.NotFound("Nenhuma tarefa encontrada.") : Results.Ok(tarefas);
 });
+// CADASTRAR TAREFA
+app.MapPost("/api/tarefa/cadastrar", async (Tarefa tarefa, AppDataContext banco, ILogger<Program> logger) =>
+{
+    try
+    {
+        logger.LogInformation("Tentando cadastrar nova tarefa: {Titulo}", tarefa.Titulo);
+
+        if (string.IsNullOrWhiteSpace(tarefa.Titulo))
+            return Results.BadRequest("O título é obrigatório");
+
+        var categoria = await banco.Categorias.FindAsync(tarefa.CategoriaId);
+        if (categoria is null)
+        {
+            logger.LogWarning("Categoria não encontrada: {CategoriaId}", tarefa.CategoriaId);
+            return Results.NotFound("Categoria não encontrada");
+        }
+
+        var usuario = await banco.Usuarios.FindAsync(tarefa.UsuarioId);
+        if (usuario is null)
+        {
+            logger.LogWarning("Usuário não encontrado: {UsuarioId}", tarefa.UsuarioId);
+            return Results.NotFound("Usuário não encontrado");
+        }
+
+        // Ajustar campos padrão caso não enviados
+        if (tarefa.CriadoEm == default)
+            tarefa.CriadoEm = DateTime.UtcNow;
+        if (string.IsNullOrWhiteSpace(tarefa.Status))
+            tarefa.Status = "Pendente";
+
+        banco.Tarefas.Add(tarefa);
+        await banco.SaveChangesAsync();
+
+        logger.LogInformation("Tarefa cadastrada com sucesso: {Id}", tarefa.Id);
+        return Results.Created($"/api/tarefa/{tarefa.Id}", tarefa);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Erro ao cadastrar tarefa: {Titulo}", tarefa?.Titulo);
+        return Results.Problem($"Erro ao cadastrar tarefa: {ex.Message}");
+    }
+});
 app.MapGet("/api/usuario/listar", async (AppDataContext banco) =>
 {
     var usuarios = await banco.Usuarios.ToListAsync();
